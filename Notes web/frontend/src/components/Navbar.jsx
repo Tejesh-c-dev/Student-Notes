@@ -4,7 +4,7 @@ const Navbar = () => {
     <nav className="bg-gradient-to-r from-indigo-600 to-blue-600 shadow-lg sticky top-0 z-50">
       <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
         {/* Logo/Brand */}
-        <div className="text-2xl font-bold text-white">NotesApp</div>
+        <div className="text-2xl font-bold text-white">Student Notes</div>
 
         {/* Navigation Links */}
         <div className="flex gap-8 items-center">
