@@ -1,11 +1,19 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const router = require('./routes/router');
 const connectDB = require('./config/db');
 const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 connectDB();
+
+// CORS configuration - allow frontend to connect
+app.use(cors({
+  origin: 'http://localhost:5173', // Vite dev server
+  credentials: true
+}));
+
 app.use(express.json());
 
 app.use("/api/notes", require("./routes/noteRoutes"));

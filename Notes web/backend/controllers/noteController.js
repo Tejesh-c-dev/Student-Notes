@@ -17,4 +17,10 @@ const getNote = async (req,res)=>{
   const note = await Note.findById(id);
   res.json(note);
 }
-module.exports = { createNote, getNotes, getNote };
+const deleteNote = async (req,res)=>{
+
+  const {id} = req.params;
+  await Note.findByIdAndDelete(id);
+  res.json({message:"Note deleted successfully"});
+}
+module.exports = { createNote, getNotes, getNote, deleteNote };

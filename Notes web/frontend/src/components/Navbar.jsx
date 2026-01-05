@@ -1,5 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
 const Navbar = () => {
+  const { user, logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <nav className="bg-gradient-to-r from-indigo-600 to-blue-600 shadow-lg sticky top-0 z-50">
       <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
@@ -27,16 +37,32 @@ const Navbar = () => {
 
         {/* Auth Buttons */}
         <div className="flex gap-4 items-center">
-          <Link to="/login">
-            <button className="px-6 py-2 text-indigo-600 bg-white font-medium rounded-lg hover:bg-indigo-50 transition-colors duration-200">
-              Login
-            </button>
-          </Link>
-          <Link to="/register">
-            <button className="px-6 py-2 bg-white text-indigo-600 font-medium rounded-lg hover:bg-indigo-50 transition-colors duration-200 border-2 border-white">
-              Register
-            </button>
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <span className="text-white font-medium">
+                👋 {user?.email?.split("@")[0]}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="px-6 py-2 text-indigo-600 bg-white font-medium rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <button className="px-6 py-2 text-indigo-600 bg-white font-medium rounded-lg hover:bg-indigo-50 transition-colors duration-200">
+                  Login
+                </button>
+              </Link>
+              <Link to="/register">
+                <button className="px-6 py-2 bg-white text-indigo-600 font-medium rounded-lg hover:bg-indigo-50 transition-colors duration-200 border-2 border-white">
+                  Register
+                </button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
